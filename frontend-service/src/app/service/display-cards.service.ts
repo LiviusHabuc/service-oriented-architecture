@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {WebSocketService} from "./web-socket.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DisplayCardsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private webSocketService: WebSocketService) {
+  }
 
   private getAuthHeader(username: string, password: string): HttpHeaders {
     const credentials = btoa(`${username}:${password}`);
