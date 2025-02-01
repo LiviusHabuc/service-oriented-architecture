@@ -26,7 +26,6 @@ public class DisplayCardController {
     }
 
     @GetMapping("/all-cards")
-    @PreAuthorize("hasRole('USER')")
     public List<DisplayCard> getAll() {
         logger.info("Getting all cards");
         return this.displayCardService.getAll();
