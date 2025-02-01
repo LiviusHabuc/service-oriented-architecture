@@ -21,4 +21,9 @@ public class DisplayCardServiceImpl implements DisplayCardService {
     public List<DisplayCard> getAll() {
         return this.displayCardRepository.findAll();
     }
+
+    @Override
+    public void saveDisplayCard(DisplayCard displayCard) {
+        this.displayCardRepository.save(displayCard);
+    }
 }

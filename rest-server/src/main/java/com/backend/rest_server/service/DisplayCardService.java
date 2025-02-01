@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DisplayCardService {
     List<DisplayCard> getAll();
+
+    void saveDisplayCard(DisplayCard displayCard);
 }
