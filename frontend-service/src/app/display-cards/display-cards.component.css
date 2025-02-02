@@ -1,3 +1,7 @@
+.kafka-notify-textarea {
+  width: 24%;
+}
+
 .add-cards-section {
   display: flex;
   flex-direction: column;

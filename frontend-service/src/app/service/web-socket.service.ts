@@ -7,9 +7,9 @@ import {BehaviorSubject, Observable} from "rxjs";
 })
 export class WebSocketService {
 
-  public messages: string[] = [];
   private client: Client;
   private displayCardsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private messageSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor() {
     this.client = new Client({
@@ -20,7 +20,7 @@ export class WebSocketService {
     this.client.onConnect = () => {
       this.client.subscribe("/topic/messages", (message) => {
         if (message.body) {
-          this.messages.push(message.body);
+          this.messageSubject.next(message.body);
           console.log("Received:", message.body);
         }
       });
@@ -29,10 +29,6 @@ export class WebSocketService {
     this.client.activate();
 
     this.connectDisplayCardsWebSocket();
-  }
-
-  getDisplayCardsUpdates(): Observable<any[]> {
-    return this.displayCardsSubject.asObservable();
   }
 
   private connectDisplayCardsWebSocket() {
@@ -51,5 +47,13 @@ export class WebSocketService {
     };
 
     displayCardsClient.activate();
+  }
+
+  getDisplayCardsUpdates(): Observable<any[]> {
+    return this.displayCardsSubject.asObservable();
+  }
+
+  getKafkaMessageUpdate(): Observable<string> {
+    return this.messageSubject.asObservable();
   }
 }

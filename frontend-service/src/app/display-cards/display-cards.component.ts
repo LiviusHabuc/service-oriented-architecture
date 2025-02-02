@@ -18,6 +18,7 @@ export class DisplayCardsComponent {
 
   displayCardsList: any[] = [];
   newCardMessage: string = "";
+  kafkaNotificationMessage: string = "Kafka not working yet..."
 
   constructor(
     private displayCardsService: DisplayCardsService,
@@ -34,6 +35,15 @@ export class DisplayCardsComponent {
       },
       error: error => {
         console.log("Display cards list websocket error:", error);
+      }
+    });
+
+    this.webSocketService.getKafkaMessageUpdate().subscribe({
+      next: updatedKafkaMessage => {
+        this.kafkaNotificationMessage = updatedKafkaMessage;
+      },
+      error: error => {
+        console.log("Kafka message websocket error:", error);
       }
     });
   }
