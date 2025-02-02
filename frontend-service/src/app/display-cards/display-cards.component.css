@@ -1,3 +1,30 @@
+.add-cards-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40%;
+  padding: 20px;
+}
+
+.add-card-button-section {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.card-text-edit {
+  min-height: 80%;
+}
+
 .cards {
   max-width: 90%;
   margin: 0 auto;
@@ -33,14 +60,5 @@
 @media (max-width: 768px) {
   .card {
     flex-direction: column;
-  }
-
-  .card img {
-    width: 100%;
-    height: auto;
-  }
-
-  .card.open img {
-    height: auto;
   }
 }

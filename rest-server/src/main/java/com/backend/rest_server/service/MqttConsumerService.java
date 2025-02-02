@@ -9,18 +9,23 @@ import com.hivemq.client.mqtt.datatypes.MqttQos;
 import com.hivemq.client.mqtt.mqtt5.Mqtt5AsyncClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MqttConsumerService {
 
     private final DisplayCardService displayCardService;
 
+    private final SimpMessagingTemplate messagingTemplate;
+
     @Autowired
-    public MqttConsumerService(DisplayCardService displayCardService) {
+    public MqttConsumerService(DisplayCardService displayCardService, SimpMessagingTemplate messagingTemplate) {
         this.displayCardService = displayCardService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @PostConstruct
@@ -69,6 +74,9 @@ public class MqttConsumerService {
                                 displayCard.setTitle(title);
                                 displayCard.setMessage(extractedMessage);
                                 displayCardService.saveDisplayCard(displayCard);
+
+                                List<DisplayCard> allDisplayCards = this.displayCardService.getAll();
+                                messagingTemplate.convertAndSend("/topic/display-cards", allDisplayCards);
                             } catch (Exception e) {
                                 System.out.println("Failed to process message: " + e.getMessage());
                             }

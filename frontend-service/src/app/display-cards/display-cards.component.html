@@ -1,3 +1,17 @@
+<section class="add-cards-section">
+  <div class="add-cards">
+    <textarea [(ngModel)]="newCardMessage"
+              class="card-text-edit"
+              placeholder="Type a message to be displayed on a card...">
+    </textarea>
+    <div class="add-card-button-section">
+      <button (click)="addDisplayCard()" class="add-card-button" type="button">
+        Add card
+      </button>
+    </div>
+  </div>
+</section>
+
 <section class="cards" *ngFor="let displayCard of displayCardsList">
   <div class="card">
     <div class="card-content">

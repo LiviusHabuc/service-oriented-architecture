@@ -40,6 +40,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     request.requestMatchers("/api/cards/**").permitAll();
+                    request.requestMatchers("/ws/**").permitAll();
                     request.anyRequest().hasRole("USER");
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
